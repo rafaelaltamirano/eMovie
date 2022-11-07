@@ -6,6 +6,9 @@ val Primary = Color(0xFF060A27)
 val Secondary = Color(0xFFFFFFFF)
 val Tertiary = Color(0xFF800606)
 
+val Yellow = Color(0xFFF6C700)
+
+
 
 
 

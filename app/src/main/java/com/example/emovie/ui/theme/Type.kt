@@ -22,8 +22,8 @@ val Poppins = FontFamily(
 val Typography = Typography(
     h1 = TextStyle(
         fontFamily = Poppins,
-        fontWeight = FontWeight.W800,
-        fontSize = 34.sp,
+        fontWeight = FontWeight.W500,
+        fontSize = 40.sp,
         letterSpacing = 0.25.sp
     ),
     h2 = TextStyle(
@@ -56,8 +56,8 @@ val Typography = Typography(
     body1 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.W800,
-        fontSize = 16.sp,
-        letterSpacing = 0.5.sp
+        fontSize = 12.sp,
+        letterSpacing = 0.25.sp
     ),
     body2 = TextStyle(
         fontFamily = Poppins,

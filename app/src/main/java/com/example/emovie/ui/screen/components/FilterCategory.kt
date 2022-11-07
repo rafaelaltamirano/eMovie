@@ -68,14 +68,6 @@ fun FilterCategoryList(
     onSelectionChange: (String) -> Unit,
     selectedOption: String,
 ) {
-//    val selectedOption by remember {
-//        mutableStateOf(categoryList.firstNotNullOf { (url, category) -> url.url })
-//    }
-//
-//    val onSelectionChange = { text: String ->
-//
-//        selectedOption = text
-//    }
     Row(
         modifier = Modifier.horizontalScroll(rememberScrollState())
     ) {
