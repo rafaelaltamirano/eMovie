@@ -2,7 +2,7 @@ package com.example.emovie.ui.framework.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import com.example.emovie.proto.Movies.Movie
+import com.example.emovie.proto.Movies.Movies
 import com.example.emovie.ui.framework.serializers.moviesStore
 import dagger.Module
 import dagger.Provides
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 object LocalStoreModule {
     @Singleton
     @Provides
-    fun providerMovieStore(
+    fun providerMoviesStore(
         @ApplicationContext context: Context
-    ): DataStore<Movie> = context.moviesStore
+    ): DataStore<Movies> = context.moviesStore
 }

@@ -13,9 +13,10 @@ val Poppins = FontFamily(
     Font(R.font.poppins_regular, FontWeight.W800),
     Font(R.font.poppins_black, FontWeight.W700),
     Font(R.font.poppins_bold, FontWeight.W600),
-    Font(R.font.poppins_light, FontWeight.W500),
+    Font(R.font.poppins_semi_bold, FontWeight.W500),
     Font(R.font.poppins_medium, FontWeight.W400),
-    Font(R.font.poppins_thin, FontWeight.W300)
+    Font(R.font.poppins_thin, FontWeight.W300),
+    Font(R.font.poppins_light, FontWeight.W200)
 )
 
 val Typography = Typography(
@@ -32,7 +33,7 @@ val Typography = Typography(
     ),
     h3 = TextStyle(
         fontFamily = Poppins,
-        fontWeight = FontWeight.W400,
+        fontWeight = FontWeight.W600,
         fontSize = 20.sp
     ),
     h4 = TextStyle(

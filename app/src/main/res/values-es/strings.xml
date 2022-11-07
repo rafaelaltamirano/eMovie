@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upcoming" >Próximos estrenos</string>
+    <string name="topRated" >Tedencias</string>
+    <string name="recommendations" >Recomendados para ti</string>
+    <string name="spanish" >En español</string>
+</resources>

@@ -10,10 +10,23 @@ class MoviesRemoteSourceImp @Inject constructor(
     private val api: MovieApi
 ) : MoviesRemoteSource {
 
+    override suspend fun requestUpcomingMovies(): List<Movie> {
+        val res = api.getUpcomingMovie(api_key = API_KEY)
+
+        return res.body()!!.results.mapNotNull { item ->
+            item.backdrop_path?.let { item.toEntity()}
+        }
+
+    }
+
     override suspend fun requestTopRatedMovies(): List<Movie> {
         val res = api.getTopRatedMovie(api_key = API_KEY)
-        return res.body()!!.results.map { it.toEntity() }}
 
+        return res.body()!!.results.mapNotNull { item ->
+            item.backdrop_path?.let { item.toEntity()}
+        }
+
+    }
 
 
     override suspend fun requestMoviesByFilters(): List<Movie> {

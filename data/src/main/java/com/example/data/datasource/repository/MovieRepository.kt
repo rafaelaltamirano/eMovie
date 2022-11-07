@@ -10,7 +10,11 @@ class MovieRepository(
     var movies: List<Movie> = emptyList()
         private set
 
-    suspend fun requestTopRatedMovies(idPart: String) = remote.requestTopRatedMovies().also {
+    suspend fun requestUpcomingMovies() = remote.requestUpcomingMovies().also {
+        save(it)
+    }
+
+    suspend fun requestTopRatedMovies() = remote.requestTopRatedMovies().also {
         save(it)
     }
 
@@ -32,6 +36,7 @@ class MovieRepository(
 
 interface MoviesRemoteSource {
 
+    suspend fun requestUpcomingMovies(): List<Movie>
     suspend fun requestTopRatedMovies(): List<Movie>
 
     suspend fun requestMoviesByFilters(): List<Movie>

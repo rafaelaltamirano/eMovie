@@ -8,7 +8,13 @@ import retrofit2.http.Query
 
 interface MovieApi {
 
-    @GET("tv/top_rated")
+    @GET("movie/upcoming")
+    suspend fun getUpcomingMovie(
+        @Query("api_key") api_key: String,
+    ): Response<ResponseWrapper<List<MovieResponse>>>
+
+
+    @GET("movie/top_rated")
     suspend fun getTopRatedMovie(
         @Query("api_key") api_key: String,
     ): Response<ResponseWrapper<List<MovieResponse>>>

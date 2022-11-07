@@ -12,10 +12,6 @@ class MoviesLocalSourceImp @Inject constructor(
     private val store: DataStore<MoviesProto>
 ) : MoviesLocalSource {
 
-//    override suspend fun save(t: List<Movie>) {
-//        store.updateData { t.toProto() }
-//    }
-
     override suspend fun save(t: List<Movie>) {
         store.updateData {
             MoviesProto
@@ -45,8 +41,6 @@ fun MovieProto.toEntity() = Movie(
     name = name,
     poster = poster,
     rating = rating
-
-
 )
 
 fun Movie.toProto(): MovieProto = MovieProto.newBuilder()
