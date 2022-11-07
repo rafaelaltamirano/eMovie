@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.emovie.R
 import com.example.emovie.ui.screen.components.*
+import com.example.emovie.ui.theme.Primary
 import com.example.emovie.ui.theme.Secondary
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
@@ -33,20 +35,27 @@ import com.google.accompanist.flowlayout.SizeMode
 @Composable
 fun HomeScreen(model: HomeModel, navController: NavHostController) {
     val state = model.state
-    Column(
-        Modifier
-            .verticalScroll(rememberScrollState())
-            .padding(dimensionResource(R.dimen.gap4))
-    ) {
-        TopAppBar()
-        Headline(stringResource(R.string.upcoming))
-        HorizontalList(items = state.upcomingMovies)
-        Headline(stringResource(R.string.topRated))
-        HorizontalList(items = state.topRatedMovies)
-        Headline(stringResource(R.string.recommendations))
-        FilterCategoryList(onClickItem = {},state.category)
-        VerticalList(items = state.topRatedMovies)
 
+    Scaffold(
+        topBar = { TopAppBar() },
+        backgroundColor = Primary,
+    ) {
+        Column(
+            Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(dimensionResource(R.dimen.gap4))
+        ) {
+            Headline(stringResource(R.string.upcoming))
+            HorizontalList(items = state.upcomingMovies)
+            Headline(stringResource(R.string.topRated))
+            HorizontalList(items = state.topRatedMovies)
+            Headline(stringResource(R.string.recommendations))
+            FilterCategoryList(
+                onClickItem = { model.requestTopRatedByFilter(it) },
+                state.category
+            )
+            VerticalList(items = state.topRatedByFilterMovies)
+        }
     }
 }
 

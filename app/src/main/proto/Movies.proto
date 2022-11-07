@@ -8,6 +8,8 @@ message Movie {
   string poster = 2;
   string name = 3;
   float rating = 4;
+  string releaseDate = 5;
+  string originalLanguage = 6;
 }
 
 message Movies {

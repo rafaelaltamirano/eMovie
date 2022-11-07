@@ -1,4 +1,4 @@
-package com.example.mobicomposeapp.utils
+package com.example.emovie.utils
 
 
 // OBJECT funciona como un sigleton,cada vez que usemos appConstants accedera desde un mismo objeto, es decir lo crea solo una vez
@@ -9,4 +9,5 @@ object AppConstants {
     const val API_KEY="73d92f173ff8ba5d9939ae435ce464ea"
     const val LARGE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
     const val SMALL_IMAGE_URL = "https://image.tmdb.org/t/p/w200"
+    const val MOVIE_ID = "303233"
 }

@@ -1,6 +1,7 @@
 package com.example.emovie.ui.screen.components
 
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,6 +20,7 @@ fun VerticalList(items: List<Movie>) {
     val itemSize: Dp =
         (LocalConfiguration.current.screenWidthDp.dp / 2) - dimensionResource(R.dimen.gap4)
     FlowRow(
+        modifier = Modifier.padding(vertical = dimensionResource(R.dimen.gap4)),
         mainAxisSize = SizeMode.Expand,
         mainAxisAlignment = FlowMainAxisAlignment.SpaceBetween,
     ) {

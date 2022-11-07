@@ -1,6 +1,6 @@
 package com.example.emovie.ui.framework.di
 
-import com.example.mobicomposeapp.utils.AppConstants.BASE_URL
+import com.example.emovie.utils.AppConstants.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

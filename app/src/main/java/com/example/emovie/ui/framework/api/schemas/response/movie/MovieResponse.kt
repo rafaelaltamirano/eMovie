@@ -7,12 +7,16 @@ data class MovieResponse(
     val id: Long,
     val backdrop_path: String?,
     val original_title: String?,
-    val vote_average: Float?
+    val vote_average: Float?,
+    val release_date: String,
+    val original_language: String,
 ) : Response<Movie> {
     override fun toEntity() = Movie(
-        id = id ,
+        id = id,
         poster = backdrop_path ?: "",
         name = original_title ?: "",
-        rating = vote_average ?: 1f
+        rating = vote_average ?: 1f,
+        releaseDate = release_date,
+        originalLanguage = original_language
     )
 }

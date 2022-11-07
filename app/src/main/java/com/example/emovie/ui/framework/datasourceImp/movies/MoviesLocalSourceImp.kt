@@ -40,12 +40,16 @@ fun MovieProto.toEntity() = Movie(
     id = id,
     name = name,
     poster = poster,
-    rating = rating
-)
+    rating = rating,
+    releaseDate = releaseDate,
+    originalLanguage = originalLanguage
+ )
 
 fun Movie.toProto(): MovieProto = MovieProto.newBuilder()
     .setId(id)
     .setName(name)
     .setPoster(poster)
     .setRating(rating)
+    .setReleaseDate(releaseDate)
+    .setOriginalLanguage(originalLanguage)
     .build()

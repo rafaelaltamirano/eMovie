@@ -6,8 +6,8 @@ import com.example.emovie.ui.screen.home.MovieFilterTypes.SPANISH
 
 
 enum class MovieFilterTypes(val url: String) {
-    SPANISH("top_rated"),
-    FROM_1993("popular"),
+    SPANISH("es"),
+    FROM_1993("1993"),
 }
 
 data class HomeState(
@@ -16,5 +16,6 @@ data class HomeState(
         FROM_1993 to "Lanzadas en 1993"),
     val loading: Boolean = false,
     val upcomingMovies: List<Movie> = emptyList(),
-    val topRatedMovies: List<Movie> = emptyList()
+    val topRatedMovies: List<Movie> = emptyList(),
+    val topRatedByFilterMovies: List<Movie> = emptyList()
 )

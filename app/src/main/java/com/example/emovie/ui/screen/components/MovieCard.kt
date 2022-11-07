@@ -1,7 +1,6 @@
 package com.example.emovie.ui.screen.components
 
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,13 +14,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.domain.model.Movie
 import com.example.emovie.R
-import com.example.mobicomposeapp.utils.AppConstants
+import com.example.emovie.utils.AppConstants
 
 @Composable
 fun MovieCard(

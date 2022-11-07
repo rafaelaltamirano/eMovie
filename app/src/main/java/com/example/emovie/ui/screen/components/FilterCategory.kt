@@ -63,7 +63,7 @@ fun ButtonWithBorder(
 
 @Composable
 fun FilterCategoryList(
-    onClickItem: (String) -> Unit,
+    onClickItem: (MovieFilterTypes) -> Unit,
     categoryList: Map<MovieFilterTypes, String> = emptyMap(),
 ) {
     var selectedOption by remember {
@@ -79,7 +79,7 @@ fun FilterCategoryList(
             ButtonWithBorder(
                 onClick = {
                     onSelectionChange(url.url)
-                    onClickItem(url.url)
+                    onClickItem(url)
                 },
                 text = category,
                 enabled = url.url == selectedOption
