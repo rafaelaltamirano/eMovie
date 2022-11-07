@@ -3,10 +3,7 @@ package com.example.emovie.ui.screen.home
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
@@ -43,9 +40,7 @@ fun HomeScreen(
 ) {
 
     val state = model.state
-
     val lifecycle = LocalLifecycleOwner.current
-
 
     DisposableEffect(lifecycle) {
 
@@ -66,59 +61,60 @@ fun HomeScreen(
         topBar = { TopAppBar() },
         backgroundColor = Primary,
     ) {
-    }
-    if (state.loadingTopRated && state.loadingUpComing) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(start = 20.dp, end = 20.dp, top = 60.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            CircularProgressIndicator(
-                Modifier
-                    .width(37.dp)
-                    .height(40.dp)
-                    .fillMaxSize(),
-            )
-        }
-    } else {
-        SwipeRefresh(
-            state = rememberSwipeRefreshState(state.loadingSwipe),
-            onRefresh = {
-                model.setSelectedFilter(SPANISH.url)
-                model.requestTopRatedMovies()
-                model.requestUpComingMovies()
-                model.requestTopRatedByFilter(SPANISH)
-                model.setLoadingSwipe(false)
-            },
-            indicator = { state, trigger ->
-                SwipeRefreshIndicator(
-                    state = state,
-                    refreshTriggerDistance = trigger,
-                    contentColor = Primary,
-                )
-            },
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
+
+        if (state.loadingTopRated && state.loadingUpComing) {
             Column(
-                Modifier
-                    .verticalScroll(rememberScrollState())
-                    .padding(dimensionResource(R.dimen.gap4))
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(start = 20.dp, end = 20.dp, top = 60.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                Headline(stringResource(R.string.upcoming))
-                HorizontalList(items = state.upcomingMovies)
-                Headline(stringResource(R.string.topRated))
-                HorizontalList(items = state.topRatedMovies)
-                Headline(stringResource(R.string.recommendations))
-                FilterCategoryList(
-                    onClickItem = { model.requestTopRatedByFilter(it) },
-                    categoryList = state.category,
-                    onSelectionChange = { model.setSelectedFilter(it) },
-                    selectedOption = state.selectedFilter
+                CircularProgressIndicator(
+                    Modifier
+                        .width(37.dp)
+                        .height(40.dp)
+                        .fillMaxSize(),
                 )
-                VerticalList(items = state.topRatedByFilterMovies)
+            }
+        } else {
+            SwipeRefresh(
+                state = rememberSwipeRefreshState(state.loadingSwipe),
+                onRefresh = {
+                    model.setSelectedFilter(SPANISH.url)
+                    model.requestTopRatedMovies()
+                    model.requestUpComingMovies()
+                    model.requestTopRatedByFilter(SPANISH)
+                    model.setLoadingSwipe(false)
+                },
+                indicator = { state, trigger ->
+                    SwipeRefreshIndicator(
+                        state = state,
+                        refreshTriggerDistance = trigger,
+                        contentColor = Primary,
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                Column(
+                    Modifier
+                        .verticalScroll(rememberScrollState())
+                        .padding(dimensionResource(R.dimen.gap4))
+                ) {
+                    Headline(stringResource(R.string.upcoming))
+                    HorizontalList(items = state.upcomingMovies)
+                    Headline(stringResource(R.string.topRated))
+                    HorizontalList(items = state.topRatedMovies)
+                    Headline(stringResource(R.string.recommendations))
+                    FilterCategoryList(
+                        onClickItem = { model.requestTopRatedByFilter(it) },
+                        categoryList = state.category,
+                        onSelectionChange = { model.setSelectedFilter(it) },
+                        selectedOption = state.selectedFilter
+                    )
+                    VerticalList(items = state.topRatedByFilterMovies)
+                }
             }
         }
     }
