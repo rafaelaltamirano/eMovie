@@ -1,60 +1,125 @@
 package com.example.emovie.ui.screen.home
 
-import android.hardware.Camera
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.emovie.R
-import com.example.emovie.ui.screen.components.*
+import com.example.emovie.ui.screen.components.FilterCategoryList
+import com.example.emovie.ui.screen.components.HorizontalList
+import com.example.emovie.ui.screen.components.TopAppBar
+import com.example.emovie.ui.screen.components.VerticalList
+import com.example.emovie.ui.screen.home.MovieFilterTypes.*
+import com.example.emovie.ui.screen.main.MainModel
 import com.example.emovie.ui.theme.Primary
 import com.example.emovie.ui.theme.Secondary
-import com.google.accompanist.flowlayout.FlowMainAxisAlignment
-import com.google.accompanist.flowlayout.FlowRow
-import com.google.accompanist.flowlayout.SizeMode
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
-
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(model: HomeModel, navController: NavHostController) {
+fun HomeScreen(
+    model: HomeModel,
+    mainModel: MainModel,
+    navController: NavHostController
+) {
+
     val state = model.state
+
+    val lifecycle = LocalLifecycleOwner.current
+
+
+    DisposableEffect(lifecycle) {
+
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) mainModel.logOut()
+            if (event == Lifecycle.Event.ON_START) model.start()
+        }
+
+        lifecycle.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycle.lifecycle.removeObserver(observer)
+        }
+
+    }
 
     Scaffold(
         topBar = { TopAppBar() },
         backgroundColor = Primary,
     ) {
+    }
+    if (state.loadingTopRated && state.loadingUpComing) {
         Column(
-            Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(dimensionResource(R.dimen.gap4))
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 20.dp, end = 20.dp, top = 60.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Headline(stringResource(R.string.upcoming))
-            HorizontalList(items = state.upcomingMovies)
-            Headline(stringResource(R.string.topRated))
-            HorizontalList(items = state.topRatedMovies)
-            Headline(stringResource(R.string.recommendations))
-            FilterCategoryList(
-                onClickItem = { model.requestTopRatedByFilter(it) },
-                state.category
+            CircularProgressIndicator(
+                Modifier
+                    .width(37.dp)
+                    .height(40.dp)
+                    .fillMaxSize(),
             )
-            VerticalList(items = state.topRatedByFilterMovies)
+        }
+    } else {
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(state.loadingSwipe),
+            onRefresh = {
+                model.setSelectedFilter(SPANISH.url)
+                model.requestTopRatedMovies()
+                model.requestUpComingMovies()
+                model.requestTopRatedByFilter(SPANISH)
+                model.setLoadingSwipe(false)
+            },
+            indicator = { state, trigger ->
+                SwipeRefreshIndicator(
+                    state = state,
+                    refreshTriggerDistance = trigger,
+                    contentColor = Primary,
+                )
+            },
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            Column(
+                Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(dimensionResource(R.dimen.gap4))
+            ) {
+                Headline(stringResource(R.string.upcoming))
+                HorizontalList(items = state.upcomingMovies)
+                Headline(stringResource(R.string.topRated))
+                HorizontalList(items = state.topRatedMovies)
+                Headline(stringResource(R.string.recommendations))
+                FilterCategoryList(
+                    onClickItem = { model.requestTopRatedByFilter(it) },
+                    categoryList = state.category,
+                    onSelectionChange = { model.setSelectedFilter(it) },
+                    selectedOption = state.selectedFilter
+                )
+                VerticalList(items = state.topRatedByFilterMovies)
+            }
         }
     }
 }
@@ -75,5 +140,5 @@ fun Headline(title: String) {
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(viewModel(), rememberNavController())
+    HomeScreen(viewModel(), viewModel(), rememberNavController())
 }

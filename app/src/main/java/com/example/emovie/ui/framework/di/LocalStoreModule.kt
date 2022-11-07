@@ -2,8 +2,10 @@ package com.example.emovie.ui.framework.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import com.example.emovie.proto.Movies.Movies
-import com.example.emovie.ui.framework.serializers.moviesStore
+import com.example.emovie.proto.UpcomingMovies.UpcomingMoviesProto
+import com.example.emovie.proto.TopRatedMovies.TopRatedMoviesProto
+import com.example.emovie.ui.framework.serializers.topRatedMoviesStore
+import com.example.emovie.ui.framework.serializers.upComingMoviesStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +19,13 @@ import javax.inject.Singleton
 object LocalStoreModule {
     @Singleton
     @Provides
-    fun providerMoviesStore(
+    fun providerUpComingMoviesStore(
         @ApplicationContext context: Context
-    ): DataStore<Movies> = context.moviesStore
+    ): DataStore<UpcomingMoviesProto> = context.upComingMoviesStore
+
+    @Singleton
+    @Provides
+    fun providerTopRatedMoviesStore(
+        @ApplicationContext context: Context
+    ): DataStore<TopRatedMoviesProto> = context.topRatedMoviesStore
 }

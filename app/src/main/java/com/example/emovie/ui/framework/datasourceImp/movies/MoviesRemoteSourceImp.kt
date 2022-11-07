@@ -26,8 +26,4 @@ class MoviesRemoteSourceImp @Inject constructor(
             item.backdrop_path?.let { item.toEntity() }
         }
     }
-
-    override suspend fun requestMoviesByFilters(): List<Movie> {
-        TODO("Not yet implemented")
-    }
 }

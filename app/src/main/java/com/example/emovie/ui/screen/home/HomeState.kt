@@ -14,8 +14,11 @@ data class HomeState(
     val category: Map<MovieFilterTypes, String> = mapOf(
         SPANISH to "En español",
         FROM_1993 to "Lanzadas en 1993"),
-    val loading: Boolean = false,
+    val loadingUpComing: Boolean = false,
+    val loadingTopRated: Boolean = false,
+    val loadingSwipe: Boolean = false,
     val upcomingMovies: List<Movie> = emptyList(),
     val topRatedMovies: List<Movie> = emptyList(),
-    val topRatedByFilterMovies: List<Movie> = emptyList()
+    val topRatedByFilterMovies: List<Movie> = emptyList(),
+    var selectedFilter: String = ""
 )

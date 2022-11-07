@@ -65,13 +65,17 @@ fun ButtonWithBorder(
 fun FilterCategoryList(
     onClickItem: (MovieFilterTypes) -> Unit,
     categoryList: Map<MovieFilterTypes, String> = emptyMap(),
+    onSelectionChange: (String) -> Unit,
+    selectedOption: String,
 ) {
-    var selectedOption by remember {
-        mutableStateOf(categoryList.firstNotNullOf { (url, category) -> url.url })
-    }
-    val onSelectionChange = { text: String ->
-        selectedOption = text
-    }
+//    val selectedOption by remember {
+//        mutableStateOf(categoryList.firstNotNullOf { (url, category) -> url.url })
+//    }
+//
+//    val onSelectionChange = { text: String ->
+//
+//        selectedOption = text
+//    }
     Row(
         modifier = Modifier.horizontalScroll(rememberScrollState())
     ) {

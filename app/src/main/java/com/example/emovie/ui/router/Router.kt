@@ -24,7 +24,7 @@ fun Router(mainModel: MainModel) {
 
         composable(HOME.route) {
             val homeModel = hiltViewModel<HomeModel>()
-            HomeScreen(homeModel,navController)
+            HomeScreen(homeModel,mainModel,navController)
         }
 
     }

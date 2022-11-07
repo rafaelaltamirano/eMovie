@@ -30,17 +30,17 @@ object NetworkModule {
     }
 
 
-//Interceptor
-@Provides
-fun provideInterceptor(): Interceptor {
-    return HttpLoggingInterceptor().also {
-        it.level = HttpLoggingInterceptor.Level.BODY
+    //Interceptor
+    @Provides
+    fun provideInterceptor(): Interceptor {
+        return HttpLoggingInterceptor().also {
+            it.level = HttpLoggingInterceptor.Level.BODY
+        }
     }
-}
 
-//Gson
-@Provides
-fun provideGson(): Gson {
-    return GsonBuilder().create()
-}
+    //Gson
+    @Provides
+    fun provideGson(): Gson {
+        return GsonBuilder().create()
+    }
 }

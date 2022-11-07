@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-option java_package = "com.example.emovie.proto.Movies";
+option java_package = "com.example.emovie.proto.UpcomingMovies";
 option java_multiple_files = true;
 
-message Movie {
+message UpcomingMovieProto {
   int64 id = 1;
   string poster = 2;
   string name = 3;
@@ -12,6 +12,6 @@ message Movie {
   string originalLanguage = 6;
 }
 
-message Movies {
-  repeated Movie movie = 1;
+message UpcomingMoviesProto {
+  repeated UpcomingMovieProto movie = 1;
 }

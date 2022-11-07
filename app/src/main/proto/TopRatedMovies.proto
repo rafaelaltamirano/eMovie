@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "com.example.emovie.proto.TopRatedMovies";
+option java_multiple_files = true;
+
+message TopRatedMovieProto {
+  int64 id = 1;
+  string poster = 2;
+  string name = 3;
+  float rating = 4;
+  string releaseDate = 5;
+  string originalLanguage = 6;
+}
+
+message TopRatedMoviesProto {
+  repeated TopRatedMovieProto movie = 1;
+}

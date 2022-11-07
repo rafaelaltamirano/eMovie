@@ -22,15 +22,28 @@ class HomeModel @Inject constructor(
     var state by mutableStateOf(HomeState())
         private set
 
-    init {
+
+    fun start() {
+        loadUpComingMoviesFromCache()
+        loadTopRatedMoviesFromCache()
+        requestTopRatedByFilter(SPANISH)
         requestUpComingMovies()
         requestTopRatedMovies()
-        requestTopRatedByFilter(SPANISH)
+        setSelectedFilter(SPANISH.url)
     }
 
-    private fun setLoading(loading: Boolean) {
-        state = state.copy(loading = loading)
+     fun setLoadingUpComing(loadingUpComing: Boolean) {
+        state = state.copy(loadingUpComing = loadingUpComing)
     }
+
+     fun setLoadingTopRated(loadingTopRated: Boolean) {
+        state = state.copy(loadingTopRated = loadingTopRated)
+    }
+
+     fun setLoadingSwipe(loadingSwipe: Boolean) {
+        state = state.copy(loadingSwipe = loadingSwipe)
+    }
+
 
     private fun setUpcomingMovies(upcomingMovies: List<Movie>) {
         state = state.copy(upcomingMovies = upcomingMovies)
@@ -44,48 +57,54 @@ class HomeModel @Inject constructor(
         state = state.copy(topRatedByFilterMovies = topRatedByFilterMovies)
     }
 
+     fun setSelectedFilter(selectedFilter: String) {
+        state = state.copy(selectedFilter = selectedFilter)
+    }
 
-    private fun requestUpComingMovies() = viewModelScope.launch {
+    private fun loadUpComingMoviesFromCache() = homeCase.loadUpComingMovies().also(::setUpcomingMovies)
+
+    private fun loadTopRatedMoviesFromCache() = homeCase.loadTopRatedMovies().also(::setTopRatedMovies)
+
+
+     fun requestUpComingMovies() = viewModelScope.launch {
         try {
-            setLoading(true)
+            setLoadingUpComing(true)
             withContext(IO) { homeCase.requestUpcomingMovies() }.also {
                 setUpcomingMovies(it)
             }
         } catch (e: Exception) {
             handleNetworkError(e)
         } finally {
-            setLoading(false)
+            setLoadingUpComing(false)
         }
     }
 
-    private fun requestTopRatedMovies() = viewModelScope.launch {
+     fun requestTopRatedMovies() = viewModelScope.launch {
         try {
-            setLoading(true)
+            setLoadingTopRated(true)
             withContext(IO) { homeCase.requestTopRatedMovies() }.also {
                 setTopRatedMovies(it)
             }
         } catch (e: Exception) {
             handleNetworkError(e)
         } finally {
-            setLoading(false)
+            setLoadingTopRated(false)
         }
     }
 
     fun requestTopRatedByFilter(filter: MovieFilterTypes) = viewModelScope.launch {
         try {
-            setLoading(true)
-            withContext(IO) { homeCase.requestTopRatedMovies() }.also { movieList ->
+
                 val filterMovieList = when (filter) {
-                    FROM_1993 -> { movieList.filter { movie -> movie.releaseDate.subSequence(0,4).toString() == filter.url } }
-                    SPANISH -> { movieList.filter { x -> x.originalLanguage == filter.url } }
+                    FROM_1993 -> { state.topRatedMovies.filter { movie -> movie.releaseDate.subSequence(0,4).toString() == filter.url } }
+                    SPANISH -> { state.topRatedMovies.filter { x -> x.originalLanguage == filter.url } }
                 }
                 if (filterMovieList.count() > 5) setTopRatedByFilterMovies(filterMovieList.take(6))
                 else setTopRatedByFilterMovies(filterMovieList)
-            }
         } catch (e: Exception) {
             handleNetworkError(e)
         } finally {
-            setLoading(false)
+            setLoadingUpComing(false)
         }
     }
 }

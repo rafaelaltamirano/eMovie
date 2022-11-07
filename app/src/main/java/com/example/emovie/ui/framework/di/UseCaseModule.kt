@@ -1,6 +1,7 @@
 package com.example.emovie.ui.framework.di
 
-import com.example.data.datasource.repository.MovieRepository
+import com.example.data.datasource.repository.TopRatedMovieRepository
+import com.example.data.datasource.repository.UpComingMovieRepository
 import com.example.usecases.HomeCase
 import com.example.usecases.MainCase
 import dagger.Module
@@ -16,16 +17,19 @@ object UseCaseModule {
     @Singleton
     @Provides
     fun providerMainCase(
+        upComingMovieRepo: UpComingMovieRepository,
+        topRatedMovieRepo: TopRatedMovieRepository
     ): MainCase {
-        return MainCase()
+        return MainCase(upComingMovieRepo, topRatedMovieRepo)
     }
 
     @Singleton
     @Provides
     fun providerHomeCase(
-        movieRepo: MovieRepository
+        upComingMovieRepo: UpComingMovieRepository,
+        topRatedMovieRepo: TopRatedMovieRepository
     ): HomeCase {
-        return HomeCase(movieRepo)
+        return HomeCase(upComingMovieRepo, topRatedMovieRepo)
     }
 
 }

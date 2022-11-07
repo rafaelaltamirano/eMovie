@@ -1,10 +1,11 @@
 package com.example.emovie.ui.framework.di
 
-import com.example.data.datasource.repository.MovieRepository
-import com.example.data.datasource.repository.MoviesLocalSource
 import com.example.data.datasource.repository.MoviesRemoteSource
-import com.example.emovie.ui.framework.datasourceImp.movies.MoviesLocalSourceImp
+import com.example.data.datasource.repository.TopRatedMovieLocalSource
+import com.example.data.datasource.repository.UpComingMoviesLocalSource
 import com.example.emovie.ui.framework.datasourceImp.movies.MoviesRemoteSourceImp
+import com.example.emovie.ui.framework.datasourceImp.movies.TopRatedMoviesLocalSourceImp
+import com.example.emovie.ui.framework.datasourceImp.movies.UpComingMoviesLocalSourceImp
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,7 +22,11 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindMoviesLocalSource(imp: MoviesLocalSourceImp): MoviesLocalSource
+    abstract fun bindUpComingMoviesLocalSource(imp: UpComingMoviesLocalSourceImp): UpComingMoviesLocalSource
+
+    @Binds
+    @Singleton
+    abstract fun bindTopRatedMoviesLocalSource(imp: TopRatedMoviesLocalSourceImp): TopRatedMovieLocalSource
 
 
 }

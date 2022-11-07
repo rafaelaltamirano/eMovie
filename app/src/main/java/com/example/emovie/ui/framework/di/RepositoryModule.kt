@@ -1,9 +1,7 @@
 package com.example.emovie.ui.framework.di
 
 
-import com.example.data.datasource.repository.MovieRepository
-import com.example.data.datasource.repository.MoviesLocalSource
-import com.example.data.datasource.repository.MoviesRemoteSource
+import com.example.data.datasource.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,10 +14,19 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providerMovieRepository(
+    fun providerTopRatedRepository(
         remote: MoviesRemoteSource,
-        local: MoviesLocalSource
-    ): MovieRepository {
-        return MovieRepository(remote, local)
+        local: TopRatedMovieLocalSource
+    ): TopRatedMovieRepository {
+        return TopRatedMovieRepository(remote, local)
+    }
+
+    @Singleton
+    @Provides
+    fun providerUpComingRepository(
+        remote: MoviesRemoteSource,
+        local: UpComingMoviesLocalSource
+    ): UpComingMovieRepository {
+        return UpComingMovieRepository(remote, local)
     }
 }
