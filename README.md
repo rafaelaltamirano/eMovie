@@ -1,5 +1,5 @@
  # Description #
-eMoviw is an app that connects to The Movie Database API 
+eMovie is an app that connects to The Movie Database API 
 
 ## Clean Architecture ##
 The feature modules are divided internally in clean architecture. Inside the feature modules exists:
