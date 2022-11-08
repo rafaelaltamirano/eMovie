@@ -1,7 +1,6 @@
 package com.example.emovie.utils
 
 object AppConstants {
-
     //API
     const val BASE_URL="https://api.themoviedb.org/3/"
     const val API_KEY="73d92f173ff8ba5d9939ae435ce464ea"
