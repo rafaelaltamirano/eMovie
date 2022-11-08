@@ -1,6 +1,7 @@
 package com.example.emovie.ui.framework.api
 
 import com.example.domain.model.MovieDetails
+import com.example.emovie.ui.framework.api.schemas.response.ResponseVideoInfoWrapper
 import com.example.emovie.ui.framework.api.schemas.response.ResponseWrapper
 import com.example.emovie.ui.framework.api.schemas.response.movie.MovieDetailsResponse
 import com.example.emovie.ui.framework.api.schemas.response.movie.MovieResponse
@@ -36,5 +37,5 @@ interface MovieApi {
     suspend fun getVideoDetails(
         @Path("id") id: String,
         @Query("api_key") api_key: String,
-    ): Response<VideoDetailsResponse>
+    ): Response<ResponseVideoInfoWrapper<List<VideoDetailsResponse>>>
 }

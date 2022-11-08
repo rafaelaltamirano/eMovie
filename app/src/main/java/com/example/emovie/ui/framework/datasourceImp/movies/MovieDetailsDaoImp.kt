@@ -10,10 +10,11 @@ import javax.inject.Inject
 class MovieDetailsDaoImp @Inject constructor(
     private val api: MovieApi
 ): MovieDetailsDao{
-    override suspend fun requestVideoDetails(): VideoDetails {
-        val res = api.getVideoDetails(api_key = AppConstants.API_KEY, id = "674324")
-
-        return res.body()!!.toEntity()
+    override suspend fun requestVideoDetails(id: Long): List<VideoDetails> {
+        val res = api.getVideoDetails(api_key = AppConstants.API_KEY, id = id.toString())
+        return res.body()!!.results.map { item ->
+            item.key.let { item.toEntity()}
+        }
     }
 
     override suspend fun requestMovieDetails(id: Long): MovieDetails {

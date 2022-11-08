@@ -5,3 +5,7 @@ data class ResponseWrapper<T>(
     val results: T
 )
 
+data class ResponseVideoInfoWrapper<T>(
+    val id: Int,
+    val results: T
+)

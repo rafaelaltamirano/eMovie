@@ -1,11 +1,17 @@
 package com.example.emovie.ui.screen.home
 
+import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
@@ -39,6 +45,8 @@ fun DetailsScreen(
     navController: NavController
 ) {
     val state = homeModel.state
+    val context = LocalContext.current
+
     Scaffold(
         topBar = { BackRow(navController = navController) },
     ) {
@@ -70,7 +78,6 @@ fun DetailsScreen(
                 )
             }
         }
-
 
         Column(
             modifier = Modifier
@@ -116,7 +123,7 @@ fun DetailsScreen(
                         border = BorderStroke(1.dp, Secondary),
                         shape = MaterialTheme.shapes.medium,
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { }
+                        onClick = {context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + state.videoDetails[0].key)) ) }
                     ) {
                         Text(
                             text = stringResource(R.string.watch_trailer),
@@ -133,7 +140,7 @@ fun DetailsScreen(
                     ) {
 
                         Text(
-                            text = stringResource(R.string.watch_trailer).uppercase(),
+                            text = stringResource(R.string.movie_plot).uppercase(),
                             style = MaterialTheme.typography.body2,
                             color = Secondary,
                         )
@@ -153,6 +160,7 @@ fun DetailsScreen(
         }
     }
 }
+
 
 
 

@@ -16,7 +16,7 @@ class HomeCase(
     suspend fun requestUpcomingMovies(): List<Movie> = upComingMovieRepo.requestUpcomingMovies()
     suspend fun requestTopRatedMovies(): List<Movie> = topRatedMovieRepo.requestTopRatedMovies()
     suspend fun requestMovieDetails(id: Long): MovieDetails = movieDetailsDao.requestMovieDetails(id)
-    suspend fun requestVideoDetails(): VideoDetails = movieDetailsDao.requestVideoDetails()
+    suspend fun requestVideoDetails(id: Long): List<VideoDetails> = movieDetailsDao.requestVideoDetails(id)
 
 
     fun loadTopRatedMovies() = topRatedMovieRepo.topRatedMovies

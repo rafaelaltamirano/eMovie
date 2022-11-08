@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Movie
 import com.example.domain.model.MovieDetails
+import com.example.domain.model.VideoDetails
 import com.example.emovie.ui.screen.home.MovieFilterTypes.*
 import com.example.emovie.ui.screen.main.ViewModelWithStatus
 import com.example.usecases.HomeCase
@@ -59,6 +60,10 @@ class HomeModel @Inject constructor(
 
     private fun setMovieDetails(movieDetails: MovieDetails) {
         state = state.copy(movieDetails = movieDetails)
+    }
+
+    private fun setVideoDetails(videoDetails: List<VideoDetails>) {
+        state = state.copy(videoDetails = videoDetails)
     }
 
      fun setSelectedFilter(selectedFilter: String) {
@@ -116,8 +121,9 @@ class HomeModel @Inject constructor(
         try {
             setLoadingTopRated(true)
             withContext(IO) { homeCase.requestMovieDetails(movie.id) }.also {
-                setMovieDetails(it)
-            }
+                setMovieDetails(it) }
+            withContext(IO) { homeCase.requestVideoDetails(movie.id) }.also {
+                setVideoDetails(it) }
         } catch (e: Exception) {
             handleNetworkError(e)
         } finally {
