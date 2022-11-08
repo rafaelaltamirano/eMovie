@@ -25,7 +25,15 @@ For save info in cache I am using Protofub. Protocol buffers are Google's langua
 # //TODO´S #
 
 Pagination
-I would like to implement as update, Paging 3 to have a cleanear and more controlled pagination and also integrate the loader and the retry in the recyclerview
+I would like to implement as update, Paging 3 to have a cleanear and more controlled pagination. There are two ways to implement pagination, with a Mediator or Paging Resource, in this case we can use both. But I consider it as an simple application, so the use of Paging resource is more apropiate, because we don't need to save the local data for long time.
 
 Search tab
-Also want to add a search screen, this api have an endpoint to bring searched result
+Also want to add a search screen, this api have an endpoint to bring searched result. This Api has an endpint to search a movie or list of movie. I would like to implement it in another version.
+
+# The Single Responsibility Principle (SRP) #
+
+The main idea of SRP is that very class, module, or function in a program should have one responsibility or purpose. As a commonly used definition, "every class should have only one reason to change".
+
+# A Good Clean Code #
+
+I consider it important to keep our project with a clean code structure and good practices, because if we want to scale it to another level, or if other people have to work on it, it must be easy to read, understand and explain.
