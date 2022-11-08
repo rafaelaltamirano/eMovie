@@ -14,10 +14,13 @@ The feature modules are divided internally in clean architecture. Inside the fea
 This is a must-have architecture implementation to be able to have re-usability of code and make testing easier. Im using Dagger Hilt
 
 ##Testing##
-For testing Im using Junit4, Mockk and the support test libraries for coroutines, android arch, koin and Junit Koin. In this project you can see UseCases, Repository and ApiClient Testing
+For testing I am using Junit4, Mockk and the support test libraries for coroutines, android arch, koin and Junit Koin. In this project you can see UseCases, Repository and ApiClient Testing
 
 ##Kotlin serialization##
 Instead of GSON I started to use Kotlin serialization in order to be ready for KMP.
+
+##Save in Cache##
+For save info in cache I am using Protofub. Protocol buffers are Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data – think XML, but smaller, faster, and simpler. 
 
 # //TODO´S #
 
