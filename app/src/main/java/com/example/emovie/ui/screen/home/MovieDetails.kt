@@ -1,17 +1,13 @@
 package com.example.emovie.ui.screen.home
 
-import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
@@ -30,9 +26,13 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.emovie.R
+import com.example.emovie.ui.router.RouterDir
+import com.example.emovie.ui.router.RouterDir.*
 import com.example.emovie.ui.screen.components.BackRow
 import com.example.emovie.ui.screen.components.BulletList
 import com.example.emovie.ui.screen.components.DetailCard
+import com.example.emovie.ui.screen.components.OutlineButton
+import com.example.emovie.ui.screen.main.MainModel
 import com.example.emovie.ui.theme.Primary
 import com.example.emovie.ui.theme.Secondary
 import com.example.emovie.utils.AppConstants.ORIGINAL_IMAGE_URL
@@ -40,12 +40,15 @@ import com.example.emovie.utils.roundToOneDecimalPlace
 
 
 @Composable
-fun DetailsScreen(
+fun MovieDetails(
     homeModel: HomeModel,
+    mainModel: MainModel,
     navController: NavController
 ) {
     val state = homeModel.state
     val context = LocalContext.current
+
+    if(mainModel.state.networkErrorStatus!=null) navController.navigate(HOME.route)
 
     Scaffold(
         topBar = { BackRow(navController = navController) },
@@ -117,21 +120,10 @@ fun DetailsScreen(
                         )
                     }
                     BulletList(list = state.movieDetails?.genres)
-
-                    OutlinedButton(
-                        colors = ButtonDefaults.outlinedButtonColors(backgroundColor = Color.Transparent),
-                        border = BorderStroke(1.dp, Secondary),
-                        shape = MaterialTheme.shapes.medium,
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = {context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + state.videoDetails[0].key)) ) }
-                    ) {
-                        Text(
-                            text = stringResource(R.string.watch_trailer),
-                            style = MaterialTheme.typography.body2,
-                            color = Secondary,
-                            modifier = Modifier.padding(dimensionResource(R.dimen.gap2))
-                        )
-                    }
+                    OutlineButton(onClick = {context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + state.videoDetails[0].key)))}
+                    , modifier = Modifier.fillMaxWidth(),
+                        text = R.string.watch_trailer
+                    )
                     Column(
                         modifier = Modifier
                             .fillMaxSize()

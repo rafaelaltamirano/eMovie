@@ -23,7 +23,6 @@ class HomeModel @Inject constructor(
     var state by mutableStateOf(HomeState())
         private set
 
-
     fun start() {
         loadUpComingMoviesFromCache()
         loadTopRatedMoviesFromCache()
@@ -32,19 +31,6 @@ class HomeModel @Inject constructor(
         requestTopRatedMovies()
         setSelectedFilter(SPANISH.url)
     }
-
-     fun setLoadingUpComing(loadingUpComing: Boolean) {
-        state = state.copy(loadingUpComing = loadingUpComing)
-    }
-
-     fun setLoadingTopRated(loadingTopRated: Boolean) {
-        state = state.copy(loadingTopRated = loadingTopRated)
-    }
-
-     fun setLoadingSwipe(loadingSwipe: Boolean) {
-        state = state.copy(loadingSwipe = loadingSwipe)
-    }
-
 
     private fun setUpcomingMovies(upcomingMovies: List<Movie>) {
         state = state.copy(upcomingMovies = upcomingMovies)
@@ -75,7 +61,19 @@ class HomeModel @Inject constructor(
     private fun loadTopRatedMoviesFromCache() = homeCase.loadTopRatedMovies().also(::setTopRatedMovies)
 
 
-     fun requestUpComingMovies() = viewModelScope.launch {
+    fun setLoadingUpComing(loadingUpComing: Boolean) {
+        state = state.copy(loadingUpComing = loadingUpComing)
+    }
+
+    fun setLoadingTopRated(loadingTopRated: Boolean) {
+        state = state.copy(loadingTopRated = loadingTopRated)
+    }
+
+    fun setLoadingSwipe(loadingSwipe: Boolean) {
+        state = state.copy(loadingSwipe = loadingSwipe)
+    }
+
+    fun requestUpComingMovies() = viewModelScope.launch {
         try {
             setLoadingUpComing(true)
             withContext(IO) { homeCase.requestUpcomingMovies() }.also {

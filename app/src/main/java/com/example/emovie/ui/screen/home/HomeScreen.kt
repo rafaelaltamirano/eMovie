@@ -22,12 +22,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.emovie.R
 import com.example.emovie.ui.router.RouterDir
 import com.example.emovie.ui.router.RouterDir.*
-import com.example.emovie.ui.screen.components.FilterCategoryList
-import com.example.emovie.ui.screen.components.HorizontalList
-import com.example.emovie.ui.screen.components.TopAppBar
-import com.example.emovie.ui.screen.components.VerticalList
+import com.example.emovie.ui.screen.components.*
 import com.example.emovie.ui.screen.home.MovieFilterTypes.*
 import com.example.emovie.ui.screen.main.MainModel
+import com.example.emovie.ui.screen.main.Status
+import com.example.emovie.ui.screen.main.Status.*
 import com.example.emovie.ui.theme.Primary
 import com.example.emovie.ui.theme.Secondary
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -40,6 +39,19 @@ fun HomeScreen(
     mainModel: MainModel,
     navController: NavHostController
 ) {
+
+
+    model.status?.also {
+        val (status) = it
+        when (status) {
+            NETWORK_ERROR -> mainModel.setNetworkErrorStatus(it)
+            ERROR -> mainModel.setErrorStatus(it)
+            INTERNET_CONNECTION_ERROR -> mainModel.setInternetConnectionError(it)
+            else -> { }
+        }
+        model.clearStatus()
+    }
+
 
     val state = model.state
     val lifecycle = LocalLifecycleOwner.current
@@ -138,17 +150,6 @@ fun HomeScreen(
 }
 
 
-@Composable
-fun Headline(title: String) {
-    Text(
-        modifier = Modifier.padding(vertical = dimensionResource(R.dimen.gap4)),
-        text = title,
-        style = MaterialTheme.typography.h3,
-        color = Secondary,
-        maxLines = 1,
-        textAlign = TextAlign.Left
-    )
-}
 
 @Preview(showBackground = true)
 @Composable

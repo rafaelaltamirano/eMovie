@@ -28,13 +28,24 @@ class MainModel @Inject constructor(
     var state by mutableStateOf(MainState())
         private set
 
-    fun logOut() = viewModelScope.launch {
-        withContext(Dispatchers.IO) { mainCase.logout() }
-
-    }
-
     private fun setShowSplash(showSplash: Boolean) {
         state = state.copy(showSplash = showSplash)
+    }
+
+    fun logOut() = viewModelScope.launch {
+        withContext(Dispatchers.IO) { mainCase.logout() }
+    }
+
+    fun setErrorStatus(errorStatus: ModelStatus?) {
+        state = state.copy(errorStatus = errorStatus)
+    }
+
+    fun setNetworkErrorStatus(networkErrorStatus: ModelStatus?) {
+        state = state.copy(networkErrorStatus = networkErrorStatus)
+    }
+
+    fun setInternetConnectionError(internetConnectionError: ModelStatus?) {
+        state = state.copy(internetConnectionError = internetConnectionError)
     }
 
 }
