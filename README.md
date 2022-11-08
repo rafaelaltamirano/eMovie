@@ -10,6 +10,10 @@ The feature modules are divided internally in clean architecture. Inside the fea
 
 ![alt text](https://erikjhordan-rey.github.io/images/2016/1/clean_archi.png)
 
+## Jetpack Compose ##
+
+A Modern toolkit for building native UI. It simplifies and accelerates UI development on Android. Quickly bring your app to life with less code, powerful tools, and intuitive Kotlin APIs
+
 ## Dependency injection ##
 This is a must-have architecture implementation to be able to have re-usability of code and make testing easier. Im using Dagger Hilt
 
