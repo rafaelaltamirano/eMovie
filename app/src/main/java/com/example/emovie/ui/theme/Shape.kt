@@ -1,4 +1,4 @@
-package com.example.mobicomposeapp.ui.theme
+package com.example.emovie.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

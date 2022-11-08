@@ -6,8 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.emovie.ui.router.RouterDir.*
-import com.example.emovie.ui.screen.details.DetailsModel
-import com.example.emovie.ui.screen.details.DetailsScreen
+import com.example.emovie.ui.screen.home.DetailsScreen
 import com.example.emovie.ui.screen.home.HomeModel
 import com.example.emovie.ui.screen.home.HomeScreen
 import com.example.emovie.ui.screen.main.MainModel
@@ -17,21 +16,21 @@ import com.example.emovie.ui.screen.splash.SplashScreen
 fun Router(mainModel: MainModel) {
 
     val navController = rememberNavController()
+    val homeModel = hiltViewModel<HomeModel>()
 
     NavHost(navController = navController,
-        startDestination = if (mainModel.state.showSplash) SPLASH.route else DETAIL.route) {
+        startDestination = if (mainModel.state.showSplash) SPLASH.route else HOME.route) {
 
         composable(SPLASH.route) { SplashScreen() }
 
         composable(HOME.route) {
-            val homeModel = hiltViewModel<HomeModel>()
+
             HomeScreen(homeModel,mainModel,navController)
         }
 
 
         composable(DETAIL.route) {
-            val detailsModel = hiltViewModel<DetailsModel>()
-            DetailsScreen()
+            DetailsScreen(homeModel,navController)
         }
 
     }

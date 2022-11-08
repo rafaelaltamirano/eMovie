@@ -1,11 +1,11 @@
 package com.example.emovie.ui.screen.home
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Movie
+import com.example.domain.model.MovieDetails
 import com.example.emovie.ui.screen.home.MovieFilterTypes.*
 import com.example.emovie.ui.screen.main.ViewModelWithStatus
 import com.example.usecases.HomeCase
@@ -57,6 +57,10 @@ class HomeModel @Inject constructor(
         state = state.copy(topRatedByFilterMovies = topRatedByFilterMovies)
     }
 
+    private fun setMovieDetails(movieDetails: MovieDetails) {
+        state = state.copy(movieDetails = movieDetails)
+    }
+
      fun setSelectedFilter(selectedFilter: String) {
         state = state.copy(selectedFilter = selectedFilter)
     }
@@ -96,11 +100,24 @@ class HomeModel @Inject constructor(
         try {
 
                 val filterMovieList = when (filter) {
-                    FROM_1993 -> { state.topRatedMovies.filter { movie -> movie.releaseDate.subSequence(0,4).toString() == filter.url } }
+                    FROM_1993 -> { state.topRatedMovies.filter { movie -> movie.releaseDate == filter.url } }
                     SPANISH -> { state.topRatedMovies.filter { x -> x.originalLanguage == filter.url } }
                 }
                 if (filterMovieList.count() > 5) setTopRatedByFilterMovies(filterMovieList.take(6))
                 else setTopRatedByFilterMovies(filterMovieList)
+        } catch (e: Exception) {
+            handleNetworkError(e)
+        } finally {
+            setLoadingUpComing(false)
+        }
+    }
+
+    fun requestSelectedMovie(movie: Movie) = viewModelScope.launch {
+        try {
+            setLoadingTopRated(true)
+            withContext(IO) { homeCase.requestMovieDetails(movie.id) }.also {
+                setMovieDetails(it)
+            }
         } catch (e: Exception) {
             handleNetworkError(e)
         } finally {

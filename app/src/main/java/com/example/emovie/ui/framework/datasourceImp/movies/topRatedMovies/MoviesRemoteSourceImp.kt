@@ -1,7 +1,9 @@
-package com.example.emovie.ui.framework.datasourceImp.movies
+package com.example.emovie.ui.framework.datasourceImp.movies.topRatedMovies
 
 import com.example.data.datasource.repository.MoviesRemoteSource
 import com.example.domain.model.Movie
+import com.example.domain.model.MovieDetails
+import com.example.domain.model.VideoDetails
 import com.example.emovie.ui.framework.api.MovieApi
 import com.example.emovie.utils.AppConstants.API_KEY
 import javax.inject.Inject
@@ -26,4 +28,6 @@ class MoviesRemoteSourceImp @Inject constructor(
             item.backdrop_path?.let { item.toEntity() }
         }
     }
+
+
 }

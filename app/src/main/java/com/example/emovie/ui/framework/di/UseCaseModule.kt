@@ -1,5 +1,6 @@
 package com.example.emovie.ui.framework.di
 
+import com.example.data.datasource.repository.MovieDetailsDao
 import com.example.data.datasource.repository.TopRatedMovieRepository
 import com.example.data.datasource.repository.UpComingMovieRepository
 import com.example.usecases.HomeCase
@@ -27,9 +28,10 @@ object UseCaseModule {
     @Provides
     fun providerHomeCase(
         upComingMovieRepo: UpComingMovieRepository,
-        topRatedMovieRepo: TopRatedMovieRepository
+        topRatedMovieRepo: TopRatedMovieRepository,
+         movieDetailsDao: MovieDetailsDao
     ): HomeCase {
-        return HomeCase(upComingMovieRepo, topRatedMovieRepo)
+        return HomeCase(upComingMovieRepo, topRatedMovieRepo,movieDetailsDao)
     }
 
 }

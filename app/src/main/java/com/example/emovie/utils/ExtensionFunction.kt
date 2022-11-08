@@ -10,6 +10,10 @@ import androidx.compose.ui.graphics.PaintingStyle
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.Dp
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
 
 
 enum class ToastDuration(val value: Int) {
@@ -44,3 +48,10 @@ fun Modifier.dashedBorder(width: Dp, radius: Dp, color: Color) =
             )
         }
     }
+
+fun Float.roundToOneDecimalPlace(): Float {
+    val df = DecimalFormat("#.#", DecimalFormatSymbols(Locale.ENGLISH)).apply {
+        roundingMode = RoundingMode.HALF_UP
+    }
+    return df.format(this).toFloat()
+}

@@ -18,7 +18,8 @@ import androidx.compose.ui.unit.sp
 import com.example.domain.model.Movie
 
 @Composable
-fun HorizontalList(items: List<Movie>) {
+fun HorizontalList(items: List<Movie>,
+                   onClick: ((Movie) -> Unit)) {
     Box(modifier = Modifier.fillMaxSize()) {
         // BowWithConstraints will provide the maxWidth used below
         BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
@@ -29,7 +30,8 @@ fun HorizontalList(items: List<Movie>) {
             ) {
                 itemsIndexed(items) { index, movie ->
                     MovieCard(
-                       item = movie
+                        item = movie,
+                        onClick = {onClick(movie)}
                     )
                 }
             }

@@ -4,4 +4,6 @@
     <string name="topRated" >Tedencias</string>
     <string name="recommendations" >Recomendados para ti</string>
     <string name="spanish" >En español</string>
+    <string name="watch_trailer" >Ver Trailer</string>
+    <string name="movie_plot" >Resumen</string>
 </resources>

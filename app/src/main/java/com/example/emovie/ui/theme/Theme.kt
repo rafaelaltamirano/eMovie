@@ -3,7 +3,6 @@ package com.example.emovie.ui.theme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import com.example.mobicomposeapp.ui.theme.Shapes
 
 
 private val LightColorPalette = lightColors(

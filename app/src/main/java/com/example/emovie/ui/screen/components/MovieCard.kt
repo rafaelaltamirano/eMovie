@@ -1,6 +1,7 @@
 package com.example.emovie.ui.screen.components
 
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -27,12 +28,16 @@ fun MovieCard(
         .height(180.dp)
         .width(138.dp),
     item: Movie,
+    onClick: (() -> Unit),
 ) {
     Card(
         modifier = modifier
             .padding(dimensionResource(R.dimen.gap2))
-            .shadow(dimensionResource(R.dimen.gap2)),
-        shape = MaterialTheme.shapes.medium,
+            .shadow(dimensionResource(R.dimen.gap2))
+            .clickable(
+                onClick = { onClick() },
+            ),
+                shape = MaterialTheme . shapes . medium,
         elevation = dimensionResource(R.dimen.gap2)
     ) {
         AsyncImage(
@@ -46,6 +51,6 @@ fun MovieCard(
                 .fillMaxWidth()
                 .height(136.dp),
             contentScale = ContentScale.Crop,
-            )
+        )
     }
 }

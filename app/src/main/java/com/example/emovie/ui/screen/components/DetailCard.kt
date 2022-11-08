@@ -28,7 +28,7 @@ import com.example.emovie.ui.theme.Yellow
 @Composable
 fun DetailCard(
     @DrawableRes icon: Int? = null,
-    text: String = "2013",
+    text: String = "",
     modifier: Modifier = Modifier
 ) {
 
@@ -41,7 +41,7 @@ fun DetailCard(
                 shape = shape
             )
             .padding(dimensionResource(R.dimen.gap2)),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
 
@@ -51,19 +51,23 @@ fun DetailCard(
                 contentDescription = "icon card",
                 tint = Primary,
                 modifier = Modifier
-                    .height(10.dp)
-                    .width(10.dp)
+                    .height(8.dp)
+                    .width(8.dp)
                     .align(CenterVertically)
             )
         }
-            Text(
-                text = text,
-                color = Primary,
-                style = MaterialTheme.typography.body1,
-                textAlign = TextAlign.Center,
-                fontWeight = (if (icon != null) W600 else W800),
-                modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.gap2)),
-                maxLines = 1,
-            )
+        Box(
+                contentAlignment = Alignment.Center,
+        ) {
+        Text(
+            text = text,
+            color = Primary,
+            style = MaterialTheme.typography.body1,
+            textAlign = TextAlign.Center,
+            fontWeight = (if (icon != null) W600 else W800),
+            modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.gap2)),
+            maxLines = 1,
+        )
+    }
     }
 }

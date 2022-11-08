@@ -20,6 +20,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.emovie.R
+import com.example.emovie.ui.router.RouterDir
+import com.example.emovie.ui.router.RouterDir.*
 import com.example.emovie.ui.screen.components.FilterCategoryList
 import com.example.emovie.ui.screen.components.HorizontalList
 import com.example.emovie.ui.screen.components.TopAppBar
@@ -103,17 +105,32 @@ fun HomeScreen(
                         .padding(dimensionResource(R.dimen.gap4))
                 ) {
                     Headline(stringResource(R.string.upcoming))
-                    HorizontalList(items = state.upcomingMovies)
+                    HorizontalList(items = state.upcomingMovies,
+                        onClick = {
+                            model.requestSelectedMovie(it)
+                            navController.navigate(DETAIL.route)
+                        }
+                    )
                     Headline(stringResource(R.string.topRated))
-                    HorizontalList(items = state.topRatedMovies)
+                    HorizontalList(items = state.topRatedMovies,
+                        onClick = {
+                            model.requestSelectedMovie(it)
+                            navController.navigate(DETAIL.route)
+                        })
                     Headline(stringResource(R.string.recommendations))
                     FilterCategoryList(
-                        onClickItem = { model.requestTopRatedByFilter(it) },
+                        onClickItem = {
+                            model.requestTopRatedByFilter(it)
+                        },
                         categoryList = state.category,
                         onSelectionChange = { model.setSelectedFilter(it) },
                         selectedOption = state.selectedFilter
                     )
-                    VerticalList(items = state.topRatedByFilterMovies)
+                    VerticalList(items = state.topRatedByFilterMovies,
+                        onClick = {
+                            model.requestSelectedMovie(it)
+                            navController.navigate(DETAIL.route)
+                        })
                 }
             }
         }

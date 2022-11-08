@@ -1,6 +1,7 @@
 package com.example.emovie.ui.screen.home
 
 import com.example.domain.model.Movie
+import com.example.domain.model.MovieDetails
 import com.example.emovie.ui.screen.home.MovieFilterTypes.FROM_1993
 import com.example.emovie.ui.screen.home.MovieFilterTypes.SPANISH
 
@@ -20,5 +21,6 @@ data class HomeState(
     val upcomingMovies: List<Movie> = emptyList(),
     val topRatedMovies: List<Movie> = emptyList(),
     val topRatedByFilterMovies: List<Movie> = emptyList(),
+    val movieDetails: MovieDetails? = null,
     var selectedFilter: String = ""
 )

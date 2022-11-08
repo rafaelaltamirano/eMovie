@@ -16,7 +16,8 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.SizeMode
 
 @Composable
-fun VerticalList(items: List<Movie>) {
+fun VerticalList(items: List<Movie>,
+                 onClick: ((Movie) -> Unit)) {
     val itemSize: Dp =
         (LocalConfiguration.current.screenWidthDp.dp / 2) - dimensionResource(R.dimen.gap4)
     FlowRow(
@@ -29,7 +30,8 @@ fun VerticalList(items: List<Movie>) {
                 modifier = Modifier
                     .width(itemSize)
                     .height(205.dp),
-                item = item
+                item = item,
+                onClick = {onClick(item)}
             )
         }
     }

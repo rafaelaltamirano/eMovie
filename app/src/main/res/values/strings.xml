@@ -4,4 +4,6 @@
     <string name="topRated" >Top Rated</string>
     <string name="recommendations" >Recommendations</string>
     <string name="spanish" >In spanish</string>
+    <string name="watch_trailer" >Watch Trailer</string>
+    <string name="movie_plot" >Movie Plot</string>
 </resources>

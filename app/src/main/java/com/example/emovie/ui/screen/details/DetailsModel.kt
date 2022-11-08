@@ -9,5 +9,4 @@ import javax.inject.Inject
 class DetailsModel @Inject constructor(
 ) : ViewModelWithStatus() {
 
-
 }
