@@ -32,7 +32,9 @@ Also want to add a search screen, this api have an endpoint to bring searched re
 
 # The Single Responsibility Principle (SRP) #
 
-The main idea of SRP is that very class, module, or function in a program should have one responsibility or purpose. As a commonly used definition, "every class should have only one reason to change".
+The S of SOLID. The main idea of SRP is that very class, module, or function in a program should have one responsibility or purpose. As a commonly used definition, "every class should have only one reason to change".
+
+![alt text]([https://erikjhordan-rey.github.io/images/2016/1/clean_archi.png](https://miro.medium.com/max/1191/1*JbfRQ05jyfBsO9glDl9E4w.png))
 
 # A Good Clean Code #
 
