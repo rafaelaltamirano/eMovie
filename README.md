@@ -12,7 +12,7 @@ The feature modules are divided internally in clean architecture. Inside the fea
 
 ## Jetpack Compose ##
 
-A Modern toolkit for building native UI. It simplifies and accelerates UI development on Android. Quickly bring your app to life with less code, powerful tools, and intuitive Kotlin APIs
+A Modern toolkit for building native UI. It simplifies and accelerates UI development on Android.
 
 ## Dependency injection ##
 This is a must-have architecture implementation to be able to have re-usability of code and make testing easier. Im using Dagger Hilt
