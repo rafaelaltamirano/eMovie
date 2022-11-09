@@ -28,11 +28,6 @@ open class ViewModelWithStatus : ViewModel() {
         this.errorStatus = ErrorStatus()
     }
 
-    fun setErrorDialog(show: Boolean) {
-        errorStatus = errorStatus?.copy(showError = show)
-    }
-
-
     fun handleNetworkError(e: Exception) {
         println(">>: handleNetworkError: $e")
         status = when (e) {

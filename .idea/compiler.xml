@@ -3,6 +3,9 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="eMovie.app" target="11" />
+      <module name="eMovie.usecases" target="1.8" />
+      <module name="eMovie.usecases.main" target="1.8" />
+      <module name="eMovie.usecases.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
